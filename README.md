@@ -23,3 +23,5 @@ $ yarn start
 - Mongoose
 - GraphQL
 - graphql-yoga
+
+## 휴타모입니다..
