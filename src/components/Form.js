@@ -3,6 +3,7 @@ import { useMutation } from "react-apollo-hooks";
 import { InputAdornment, TextField, Icon } from "@material-ui/core";
 import styles from "./Form.module.scss";
 import gql from "graphql-tag";
+import ChatGPT from "./ChatGPT";
 
 const sendMessage = gql`
   mutation sendMessage(
@@ -37,6 +38,10 @@ const Form = ({ chatId }) => {
   });
   return (
     <div className={styles.form}>
+      <label>GPT</label>
+      <div id="gptzone">
+        <ChatGPT></ChatGPT>
+      </div>
       <TextField
         onChange={e => {
           setContents(e.target.value);
