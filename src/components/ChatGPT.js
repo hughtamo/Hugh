@@ -8,7 +8,7 @@ function ChatGPT() {
   const [loading, setLoading] = useState(false);
   const [responseText, setResponseText] = useState("");
   const [keywords, setKeywords] = useState("");
-  const api_key = "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"; // <- API KEY 입력
+  const api_key = "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"; // <- API KEY 입력
 
   const handleChatGPT = async () => {
     setLoading(true);
@@ -17,7 +17,7 @@ function ChatGPT() {
       { role: "system", content: "You are a helpful assistant." },
       {
         role: "user",
-        content: keywords + "에 대하여 최대한 도움이 되는 답변을 해줘.",
+        content: keywords + "에 대하여 100자 미만으로 짧게 답변해줘.",
       },
     ];
 
