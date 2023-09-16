@@ -5,64 +5,68 @@ import React, { useState } from "react";
 //import gql from "graphql-tag";
 
 function ChatGPT() {
-    const [loading, setLoading] = useState(false);
-    const [responseText, setResponseText] = useState('');
-    const [keywords, setKeywords] = useState('');
-    const api_key = "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";  // <- API KEY 입력
-  
-    const handleChatGPT = async () => {
-      setLoading(true);
-  
-      const messages = [
-        { role: 'system', content: 'You are a helpful assistant.' },
-        { role: 'user', content: keywords + '에 대하여 최대한 도움이 되는 답변을 해줘.' },
-      ];
-  
-      const data = {
-        model: 'gpt-3.5-turbo',
-        temperature: 0.5,
-        n: 1,
-        messages: messages,
-      };
-  
-      try {
-        const response = await fetch("https://api.openai.com/v1/chat/completions", {
-          method: 'POST',
+  const [loading, setLoading] = useState(false);
+  const [responseText, setResponseText] = useState("");
+  const [keywords, setKeywords] = useState("");
+  const api_key = "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"; // <- API KEY 입력
+
+  const handleChatGPT = async () => {
+    setLoading(true);
+
+    const messages = [
+      { role: "system", content: "You are a helpful assistant." },
+      {
+        role: "user",
+        content: keywords + "에 대하여 최대한 도움이 되는 답변을 해줘.",
+      },
+    ];
+
+    const data = {
+      model: "gpt-3.5-turbo",
+      temperature: 0.5,
+      n: 1,
+      messages: messages,
+    };
+
+    try {
+      const response = await fetch(
+        "https://api.openai.com/v1/chat/completions",
+        {
+          method: "POST",
           headers: {
             Authorization: "Bearer " + api_key,
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(data),
-        });
-  
-        const responseData = await response.json();
-        setResponseText(responseData.choices[0].message.content);
-        setKeywords('');
-      } catch (error) {
-        console.error(error);
-      }
-  
-      setLoading(false);
-    };
-  
-    return (
-      <div>
-        <input
-          type="text"
-          id="keywords"
-          name="keywords"
-          value={keywords}
-          onChange={(e) => setKeywords(e.target.value)}
-        />
-        <button onClick={handleChatGPT}>Chat</button>
-  
-        {loading && <div id="loading">Loading...</div>}
-  
-        <div id="result">
-          {responseText && <pre>{responseText}</pre>}
-        </div>
-      </div>
-    );
-  }
-  
-  export default ChatGPT;
+        }
+      );
+
+      const responseData = await response.json();
+      setResponseText(responseData.choices[0].message.content);
+      setKeywords("");
+    } catch (error) {
+      console.error(error);
+    }
+
+    setLoading(false);
+  };
+
+  return (
+    <div>
+      <input
+        type="text"
+        id="keywords"
+        name="keywords"
+        value={keywords}
+        onChange={(e) => setKeywords(e.target.value)}
+      />
+      <button onClick={handleChatGPT}>Chat</button>
+
+      {loading && <div id="loading">Loading...</div>}
+
+      <div id="result">{responseText && <pre>{responseText}</pre>}</div>
+    </div>
+  );
+}
+
+export default ChatGPT;
