@@ -4,18 +4,22 @@ import React, { useState } from "react";
 //import styles from "./Form.module.scss";
 //import gql from "graphql-tag";
 
-function ChatGPT() {
+function Summarize(messageinput) {
     const [loading, setLoading] = useState(false);
     const [responseText, setResponseText] = useState('');
-    const [keywords, setKeywords] = useState('');
+    const [setKeywords] = useState('');
     const api_key = "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";  // <- API KEY 입력
-  
-    const handleChatGPT = async () => {
+    
+    const keywords = messageinput.data;
+
+    console.log(keywords);
+    
+    const handleSummarize = async () => {
       setLoading(true);
   
       const messages = [
         { role: 'system', content: 'You are a helpful assistant.' },
-        { role: 'user', content: keywords + '에 대하여 100자 미만으로 짧게 답변해줘.' },
+        { role: 'user', content: keywords + '을 요약해줘.' },
       ];
   
       const data = {
@@ -47,14 +51,7 @@ function ChatGPT() {
   
     return (
       <div>
-        <input
-          type="text"
-          id="keywords"
-          name="keywords"
-          value={keywords}
-          onChange={(e) => setKeywords(e.target.value)}
-        />
-        <button onClick={handleChatGPT}>Chat</button>
+        <button onClick={handleSummarize}>Summarize</button>
   
         {loading && <div id="loading">Loading...</div>}
   
@@ -65,4 +62,4 @@ function ChatGPT() {
     );
   }
   
-  export default ChatGPT;
+  export default Summarize;
