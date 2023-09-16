@@ -7,6 +7,7 @@ import { positions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import Home from "./Home";
 import LoginPage from "./LoginPage";
+import ChatGPT from "./ChatGPT";
 
 const options = {
   position: positions.BOTTOM_CENTER,
@@ -26,6 +27,7 @@ class App extends Component {
               <Route exact path={"/"} component={Home} />
               <Route path={"/chat/:id"} component={Home} />
               <Route path={"/Login"} component={LoginPage} />
+              <Route path={"/Gpt"} component={ChatGPT} />
             </Router>
           </AlertProvider>
         </ApolloHooksProvider>

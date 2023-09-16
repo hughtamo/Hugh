@@ -17,6 +17,7 @@
     "lodash.template": "^4.5.0",
     "node-sass": "^4.14.1",
     "open-color": "^1.6.3",
+    "openai": "^4.7.1",
     "react": "^16.8.6",
     "react-alert": "^5.5.0",
     "react-alert-template-basic": "^1.0.0",
@@ -27,7 +28,8 @@
     "react-google-login": "^5.0.4",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
-    "subscriptions-transport-ws": "^0.9.16"
+    "subscriptions-transport-ws": "^0.9.16",
+    "typescript": "^5.2.2"
   },
   "scripts": {
     "start:https": "export HTTPS=true&&PORT=3000 react-scripts start",
