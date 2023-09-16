@@ -8,7 +8,7 @@ function Summarize(messageinput) {
     const [loading, setLoading] = useState(false);
     const [responseText, setResponseText] = useState('');
     const [setKeywords] = useState('');
-    const api_key = "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";  // <- API KEY 입력
+    const api_key = process.env.REACT_APP_OPENAI_API_KEY;  // <- API KEY 입력
     
     const keywords = messageinput.data;
 
