@@ -8,12 +8,13 @@ import ChatGPT from "./ChatGPT";
 
 function Summarize(messageinput) {
   const [loading, setLoading] = useState(false);
-  const [responseText, setResponseText] = useState("");
+  //const [responseText, setResponseText] = useState("");
   const [showSummary, setShowSummary] = useState(false);
-  const [responseLines, setResponseLines] = useState([]);
+  //const [responseLines, setResponseLines] = useState([]);
   const [generateSummary, setGenerateSummary] = useState(false);
   const [savedSummary, setSavedSummary] = useState("");
-  const [keywords, setKeywords] = useState("");
+  //const [keywords, setKeywords] = useState("");
+  const setKeywords = useState("");
 
   const api_key = process.env.REACT_APP_OPENAI_API_KEY; // <- API KEY 입력
 

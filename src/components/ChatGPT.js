@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import styles from "./Form.module.scss";
 //import { TextField } from "@material-ui/core";
 //import gql from "graphql-tag";
-import Summarize from "./Summary";
+//import Summarize from "./Summary";
 
 function ChatGPT(props) {
   const [loading, setLoading] = useState(false);
@@ -19,7 +19,8 @@ function ChatGPT(props) {
   const copyToClipboard = () => {
     if (responseText) {
       // 텍스트를 클립보드에 복사
-      navigator.clipboard.writeText(responseText)
+      navigator.clipboard
+        .writeText(responseText)
         .then(() => {
           // 복사 성공 시 처리
           alert("답변이 클립보드에 복사되었습니다.");
@@ -36,7 +37,11 @@ function ChatGPT(props) {
       { role: "system", content: "You are a helpful assistant." },
       {
         role: "user",
-        content: summary +"는 원래 학생 또는 학부모의 문의사항이고" + keywords + "는 교사인 내가 작성한 간략한 답변인데, 답변을 더 친절하게 인삿말과 끝맺음말을 추가해서 써줘. 원래 내가 쓴 답변을 출력해줄 필요는 없어. 그리고 summary에 해당하는 내용이 뭔지도 정리해서 \"문의주신 내용은 다음과 같습니다. 1. 2. ...\"이런 식으로 먼저 소개해주고 답변을 써주면 좋을 것 같아.",
+        content:
+          summary +
+          "는 원래 학생 또는 학부모의 문의사항이고" +
+          keywords +
+          '는 교사인 내가 작성한 간략한 답변인데, 답변을 더 친절하게 인삿말과 끝맺음말을 추가해서 써줘. 원래 내가 쓴 답변을 출력해줄 필요는 없어. 그리고 summary에 해당하는 내용이 뭔지도 정리해서 "문의주신 내용은 다음과 같습니다. 1. 2. ..."이런 식으로 먼저 소개해주고 답변을 써주면 좋을 것 같아.',
       },
     ];
 
@@ -72,22 +77,33 @@ function ChatGPT(props) {
 
   return (
     <div>
-      <TextField style={{width:'70%'}}
+      <TextField
+        style={{ width: "70%" }}
         id="standard-multiline-static"
         multiline
         rows={3}
-        variant = "standard"
+        variant="standard"
         type="text"
         name="keywords"
         value={keywords}
         onChange={(e) => setKeywords(e.target.value)}
-        />
-        <br/><br/>
-      <Button variant="contained" color="primary" onClick={handleChatGPT}>답변 생성</Button>
-      <Button style={{margin:'3px'}} variant="contained" color="primary" onClick={copyToClipboard}>
+      />
+      <br />
+      <br />
+      <Button variant="contained" color="primary" onClick={handleChatGPT}>
+        답변 생성
+      </Button>
+      <Button
+        style={{ margin: "3px" }}
+        variant="contained"
+        color="primary"
+        onClick={copyToClipboard}
+      >
         답변 복사
       </Button>
-      {loading && <div id="loading">답변 생성 중입니다. 잠시만 기다려주세요...</div>}
+      {loading && (
+        <div id="loading">답변 생성 중입니다. 잠시만 기다려주세요...</div>
+      )}
 
       <div id="result" className={styles.form}>
         {responseText && <pre className={styles.form}>{responseText}</pre>}
