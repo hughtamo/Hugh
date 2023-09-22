@@ -8,10 +8,12 @@
     "npm": "6.4.1"
   },
   "dependencies": {
+    "@fontsource/noto-sans-kr": "^5.0.11",
     "graphql-scalar-objectid": "^0.1.1",
     "graphql-yoga": "^1.17.4",
     "lodash": "^4.17.15",
-    "mongoose": "^5.7.5"
+    "mongoose": "^5.7.5",
+    "react-wordcloud": "^1.2.7"
   },
   "scripts": {
     "start": "nodemon --exec babel-node index.js"
