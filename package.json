@@ -50,7 +50,8 @@
   ],
   "devDependencies": {
     "gh-pages": "^2.0.1",
-    "http-proxy-middleware": "^2.0.6"
+    "http-proxy-middleware": "^2.0.6",
+    "sweetalert2": "^11.7.28"
   },
   "main": "index.js",
   "repository": "https://github.com/hughtamo/Frontend.git",

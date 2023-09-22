@@ -4,6 +4,7 @@ import { InputAdornment, TextField, Icon } from "@material-ui/core";
 import styles from "./Form.module.scss";
 import gql from "graphql-tag";
 import ChatGPT from "./ChatGPT";
+import Swal from "sweetalert2";
 
 const sendMessage = gql`
   mutation sendMessage(
@@ -55,7 +56,12 @@ const Form = ({ chatId }) => {
         if (data.document && data.document.sentiment === "negative") {
           // Trigger an alert for negative sentiment
           negativeDetected = true;
-          alert("부정적 메세지가 확인되었습니다! ");
+          Swal.fire({
+            icon: "warning",
+            title: "경고",
+            text: "문제되는 메세지가 확인되었습니다. 다시 작성해 주세요.",
+            confirmButtonText: "네, 알겠습니다.",
+          });
         }
       }
     } catch (error) {
