@@ -185,7 +185,7 @@ function Summarize(messageinput) {
       )}
       {showSummary && (
         <div id="result">
-          <pre style={styles.pre}>{showSummary ? savedSummary : ""}</pre>
+          <pre style={{...styles.pre, whiteSpace: "pre-wrap"}}>{showSummary ? savedSummary : ""}</pre>
           <br/>
           <Button onClick={toggleSummary}>요약 접기</Button>
         </div>
