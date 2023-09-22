@@ -5,9 +5,6 @@ import defaultImageUrl from "./default_user.png";
 
 const User = ({ _id, name, picture, setChatId, setToggleShowList }) => {
   const [isSwitched, setIsSwitched] = useState(false);
-  const switchHandler = () => {
-    setIsSwitched(!isSwitched);
-  }
   
   if (!picture) {
     picture = defaultImageUrl;
@@ -19,7 +16,6 @@ const User = ({ _id, name, picture, setChatId, setToggleShowList }) => {
       onClick={() => {
         setChatId(_id);
         setToggleShowList(false);
-        switchHandler();
       }}
     >
       <img src={picture} alt="profile" className={styles.imgProfile} />

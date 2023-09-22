@@ -44,12 +44,14 @@ class MessageList extends React.Component {
         ? window.sessionStorage.getItem("id") + chatId
         : chatId + window.sessionStorage.getItem("id")
     );
+    const currentUserId = window.sessionStorage.getItem("id");
+
     return (
       <div>
         <Query
           query={getMessages}
           variables={{
-            userId1: window.sessionStorage.getItem("id"),
+            userId1: currentUserId,
             userId2: chatId
           }}
         >
@@ -65,9 +67,9 @@ class MessageList extends React.Component {
                 document: newMessage,
                 variables: {
                   roomId:
-                    window.sessionStorage.getItem("id") < chatId
-                      ? window.sessionStorage.getItem("id") + chatId
-                      : chatId + window.sessionStorage.getItem("id")
+                    currentUserId < chatId
+                      ? currentUserId + chatId
+                      : chatId + currentUserId
                 },
                 updateQuery: (prev, { subscriptionData }) => {
                   if (!subscriptionData.data) {
@@ -87,15 +89,20 @@ class MessageList extends React.Component {
             return (
               <div className={styles.messageList}>
                 {data.messages.map(message => (
-                  <Message
-                    key={message._id}
-                    me={
-                      message.senderId === window.sessionStorage.getItem("id")
-                    }
-                    time={message.time}
-                  >
-                    {message.contents}
-                  </Message>
+                  <div key={message._id} className={styles.message}>
+                    {message.senderId !== currentUserId && (
+                      <span className={styles.senderId}>{message.senderId}:</span>
+                    )}
+                    <Message
+                      key={message._id}
+                      me={
+                        message.senderId === currentUserId
+                      }
+                      time={message.time}
+                    >
+                      {message.contents}
+                    </Message>
+                  </div>
                 ))}
               </div>
             );
