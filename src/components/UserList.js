@@ -13,6 +13,7 @@ const getUsers = gql`
       name
       imageUrl
       online
+      role
     }
   }
 `;
@@ -24,6 +25,7 @@ const newUser = gql`
       name
       imageUrl
       online
+      role
     }
   }
 `;
@@ -33,7 +35,7 @@ let unsubscribe = null;
 const UserList = ({ setChatId }) => {
   const [toggleShowList, setToggleShowList] = useState(false);
   const [keyword, setKeyword] = useState("");
-  const handleChange = e => {
+  const handleChange = (e) => {
     setKeyword(e.target.value);
   };
 
@@ -54,22 +56,31 @@ const UserList = ({ setChatId }) => {
                 const { newUser } = subscriptionData.data;
                 return {
                   ...prev,
-                  users: [...prev.users, newUser]
+                  users: [...prev.users, newUser],
                 };
-              }
+              },
             });
           }
           refetch();
           const filteredSearchUser = data.users.filter(
-            user =>
+            (user) =>
               user.name.indexOf(keyword) !== -1 &&
               user._id !== window.sessionStorage.getItem("id")
           );
-          const filteredOnlineUser = filteredSearchUser.filter(
-            user => user.online
+          // const filteredOnlineUser = filteredSearchUser.filter(
+          //   (user) => user.online
+          // );
+          // const filteredOfflineUser = filteredSearchUser.filter(
+          //   (user) => !user.online
+          // );
+          const filteredStudentUser = filteredSearchUser.filter(
+            (user) => user.role === "student"
           );
-          const filteredOfflineUser = filteredSearchUser.filter(
-            user => !user.online
+          const filteredParentUser = filteredSearchUser.filter(
+            (user) => user.role === "parent"
+          );
+          const filteredTeacherUser = filteredSearchUser.filter(
+            (user) => user.role === "teacher"
           );
           return (
             <Fragment>
@@ -84,8 +95,8 @@ const UserList = ({ setChatId }) => {
                   margin="dense"
                   onChange={handleChange}
                 />
-                <div className={styles.onlineBar}>online</div>
-                {filteredOnlineUser.map(user => (
+                <div className={styles.roleBar}>교사</div>
+                {filteredTeacherUser.map((user) => (
                   <User
                     key={user._id}
                     _id={user._id}
@@ -93,10 +104,11 @@ const UserList = ({ setChatId }) => {
                     picture={user.imageUrl}
                     setChatId={setChatId}
                     setToggleShowList={setToggleShowList}
+                    online={user.online}
                   />
                 ))}
-                <div className={styles.offlineBar}>offline</div>
-                {filteredOfflineUser.map(user => (
+                <div className={styles.roleBar}>학생</div>
+                {filteredStudentUser.map((user) => (
                   <User
                     key={user._id}
                     _id={user._id}
@@ -104,6 +116,19 @@ const UserList = ({ setChatId }) => {
                     picture={user.imageUrl}
                     setChatId={setChatId}
                     setToggleShowList={setToggleShowList}
+                    online={user.online}
+                  />
+                ))}
+                <div className={styles.roleBar}>학부모</div>
+                {filteredParentUser.map((user) => (
+                  <User
+                    key={user._id}
+                    _id={user._id}
+                    name={user.name}
+                    picture={user.imageUrl}
+                    setChatId={setChatId}
+                    setToggleShowList={setToggleShowList}
+                    online={user.online}
                   />
                 ))}
               </div>

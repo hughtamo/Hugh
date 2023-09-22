@@ -7,8 +7,7 @@ const Contents = ({ chatId }) => {
   if (!chatId) {
     return (
       <div className={styles.contents}>
-        <div className={styles.center}>
-        </div>
+        <div className={styles.center}></div>
       </div>
     );
   }

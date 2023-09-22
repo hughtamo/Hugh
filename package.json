@@ -18,8 +18,9 @@
     "lodash": "^4.17.15",
     "lodash.mergewith": "^4.6.2",
     "lodash.template": "^4.5.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.14.1",
     "open-color": "^1.6.3",
+    "openai": "^4.7.1",
     "react": "^16.8.6",
     "react-alert": "^5.5.0",
     "react-alert-template-basic": "^1.0.0",
@@ -30,7 +31,8 @@
     "react-google-login": "^5.0.4",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
-    "subscriptions-transport-ws": "^0.9.16"
+    "subscriptions-transport-ws": "^0.9.16",
+    "typescript": "^5.2.2"
   },
   "scripts": {
     "start:https": "export HTTPS=true&&PORT=3000 react-scripts start",
@@ -51,5 +53,9 @@
   ],
   "devDependencies": {
     "gh-pages": "^2.0.1"
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/hughtamo/Frontend.git",
+  "author": "sjy2335 <106982330+sjy2335@users.noreply.github.com>",
+  "license": "MIT"
 }

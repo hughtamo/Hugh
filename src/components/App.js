@@ -13,8 +13,8 @@ const options = {
   position: positions.BOTTOM_CENTER,
   timeout: 5000,
   containerStyle: {
-    zIndex: 1001
-  }
+    zIndex: 1001,
+  },
 };
 
 class App extends Component {

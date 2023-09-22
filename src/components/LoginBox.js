@@ -10,14 +10,14 @@ import {
   IconButton,
   Icon,
   Button,
-  Link
+  Link,
 } from "@material-ui/core";
 import { useAlert } from "react-alert";
 import gql from "graphql-tag";
 import { useQuery, useMutation } from "react-apollo-hooks";
 
 const user = gql`
-  query($_id: String!) {
+  query ($_id: String!) {
     user(_id: $_id) {
       _id
       password
@@ -27,7 +27,7 @@ const user = gql`
 `;
 
 const userConnectChange = gql`
-  mutation($_id: String!, $online: Boolean!) {
+  mutation ($_id: String!, $online: Boolean!) {
     userConnectChange(_id: $_id, online: $online) {
       _id
       name
@@ -45,14 +45,14 @@ const LoginBox = () => {
   const [password, setPassword] = useState("");
   const { data } = useQuery(user, {
     variables: {
-      _id: id
-    }
+      _id: id,
+    },
   });
   const userConnect = useMutation(userConnectChange, {
     variables: {
       _id: id,
-      online: true
-    }
+      online: true,
+    },
   });
 
   const handleLogin = () => {
@@ -79,69 +79,71 @@ const LoginBox = () => {
   }
   return (
     <>
-    <div className={styles.loginContainer}>
-      <div className={styles.logo}>
-        <img id="logo" src="/logo.png"></img>
+      <div className={styles.loginContainer}>
+        <div className={styles.logo}>
+          <img id="logo" alt="logo" src="/logo.png"></img>
+        </div>
+        <div className={styles.loginBox}>
+          <br />
+          <TextField
+            id="id"
+            className={styles.id}
+            variant="standard"
+            type="text"
+            label="ID"
+            margin="normal"
+            onChange={(e) => {
+              setId(e.target.value);
+            }}
+            value={id}
+          />
+          <TextField
+            id="password"
+            className={styles.password}
+            variant="standard"
+            type={showPassword ? "text" : "password"}
+            label="Password"
+            margin="normal"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="Toggle password visibility"
+                    onClick={() => useShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <Icon>visibility</Icon>
+                    ) : (
+                      <Icon>visibility_off</Icon>
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            value={password}
+          />
+          <br />
+          <br />
+          <Button
+            color="primary"
+            variant="contained"
+            className={styles.button}
+            onClick={() => handleLogin()}
+          >
+            Login
+          </Button>
+          <br />
+          <br />
+          <span>Don't have an account? </span>
+          <Link onClick={() => setShowJoin(true)} underline="none">
+            Create your account
+          </Link>
+        </div>
+        <Join showJoin={showJoin} setShowJoin={setShowJoin} />
       </div>
-      <div className={styles.loginBox}>
-        <br/>
-        <TextField
-          id="id"
-          className={styles.id}
-          variant="standard"
-          type="text"
-          label="ID"
-          margin="normal"
-          onChange={e => {
-            setId(e.target.value);
-          }}
-          value={id}
-        />
-        <TextField
-          id="password"
-          className={styles.password}
-          variant="standard"
-          type={showPassword ? "text" : "password"}
-          label="Password"
-          margin="normal"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="Toggle password visibility"
-                  onClick={() => useShowPassword(!showPassword)}
-                >
-                  {showPassword ? (
-                    <Icon>visibility</Icon>
-                  ) : (
-                    <Icon>visibility_off</Icon>
-                  )}
-                </IconButton>
-              </InputAdornment>
-            )
-          }}
-          onChange={e => {
-            setPassword(e.target.value);
-          }}
-          value={password}
-        />
-        <br /><br/>
-        <Button
-          color="primary"
-          variant="contained"
-          className={styles.button}
-          onClick={() => handleLogin()}
-        >
-          Login
-        </Button>
-        <br /><br/>
-        <text>Don't have an account? </text>
-        <Link onClick={() => setShowJoin(true)} underline="none">
-          Create your account
-        </Link>
-      </div>
-      <Join showJoin={showJoin} setShowJoin={setShowJoin} />
-    </div>
     </>
   );
 };

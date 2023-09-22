@@ -7,14 +7,14 @@ const Header = ({ setRedirectToReferrer, setShowTodo }) => {
   return (
     <AppBar className={styles.header}>
       <div className={styles.logo}>
-        <img src="/logo.png"></img>
+        <img src="/logo.png" alt="/logo.png"></img>
       </div>
       <MenuButton
         className={styles.menuButton}
         setRedirectToReferrer={setRedirectToReferrer}
         setShowTodo={setShowTodo}
       />
-      <img 
+      <img
         alt={window.sessionStorage.getItem("name")}
         className={styles.profile}
         src={window.sessionStorage.getItem("imgUrl") || default_user}
