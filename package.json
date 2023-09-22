@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "engines": {
-    "node": "10.15.0",
+    "node": "14.21.3",
     "npm": "6.4.1"
   },
   "dependencies": {
@@ -19,6 +19,8 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-3": "^6.24.1"
+    "babel-preset-stage-3": "^6.24.1",
+    "cors": "^2.8.5",
+    "http-proxy-middleware": "^2.0.6"
   }
 }
