@@ -54,7 +54,6 @@ const Form = ({ chatId }) => {
       if (response.ok) {
         const data = await response.json();
         if (data.document && data.document.sentiment === "negative") {
-          // Trigger an alert for negative sentiment
           negativeDetected = true;
           Swal.fire({
             icon: "warning",
@@ -67,9 +66,27 @@ const Form = ({ chatId }) => {
     } catch (error) {
       console.error("Error analyzing sentiment:", error);
     }
+
     if (!negativeDetected) {
-      mutation();
-      console.log("mutation called?");
+      mutation({
+        variables: {
+          senderId: window.sessionStorage.getItem("id"),
+          receiverId: chatId,
+          contents,
+          time: new Date(),
+        },
+      });
+      console.log("mutation called");
+      setContents(""); // Clear the input field
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault(); // Prevent the default form submission behavior
+      if (contents.trim() !== "") {
+        analyzeSentiment();
+      }
     }
   };
 
@@ -83,13 +100,14 @@ const Form = ({ chatId }) => {
         onChange={(e) => {
           setContents(e.target.value);
         }}
-        onKeyPress={(e) => {
-          if (e.key === "Enter") {
-            setContents("");
-            analyzeSentiment();
-            mutation();
-          }
-        }}
+        // onKeyPress={(e) => {
+        //   if (e.key === "Enter") {
+        //     setContents("");
+        //     analyzeSentiment();
+        //     mutation();
+        //   }
+        // }}
+        onKeyPress={handleKeyPress}
         value={contents}
         fullWidth={true}
         margin="normal"
