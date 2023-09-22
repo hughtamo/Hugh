@@ -19,10 +19,7 @@ const TodoList = ({ showTodo, setShowTodo }) => {
           showTodo ? styles.show : styles.unShow
         }`}
       >
-        <div className={styles.title}>오늘 할 일</div>
-        <div className={styles.form}>
-          <TodoForm />
-        </div>
+        <div className={styles.title}>회원 정보</div>
         <div className={styles.todos}>
           <Todos />
         </div>

@@ -1,11 +1,6 @@
 import { TextField, Button } from "@material-ui/core";
 import React, { useState } from "react";
-//import { useMutation } from "react-apollo-hooks";
-//import { InputAdornment, TextField, Icon } from "@material-ui/core";
-import styles from "./Form.module.scss";
-//import { TextField } from "@material-ui/core";
-//import gql from "graphql-tag";
-//import Summarize from "./Summary";
+import Swal from "sweetalert2";
 
 function ChatGPT(props) {
   const [loading, setLoading] = useState(false);
@@ -24,7 +19,12 @@ function ChatGPT(props) {
         .writeText(responseText)
         .then(() => {
           // 복사 성공 시 처리
-          alert("답변이 클립보드에 복사되었습니다.");
+          Swal.fire({
+            icon: "success",
+            title: "복사 완료",
+            html: "답변이 클립보드에 복사되었습니다.",
+            confirmButtonText: "OK",
+          });
         })
         .catch((err) => {
           console.error("클립보드 복사 실패:", err);

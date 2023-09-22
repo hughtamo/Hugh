@@ -67,12 +67,6 @@ const UserList = ({ setChatId }) => {
               user.name.indexOf(keyword) !== -1 &&
               user._id !== window.sessionStorage.getItem("id")
           );
-          // const filteredOnlineUser = filteredSearchUser.filter(
-          //   (user) => user.online
-          // );
-          // const filteredOfflineUser = filteredSearchUser.filter(
-          //   (user) => !user.online
-          // );
           const filteredStudentUser = filteredSearchUser.filter(
             (user) => user.role === "student"
           );

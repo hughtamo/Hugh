@@ -1,20 +1,20 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styles from "./User.module.scss";
 import defaultImageUrl from "./default_user.png";
 
-const User = ({ _id, name, picture, setChatId, setToggleShowList }) => {
+const User = ({ _id, name, picture, setChatId, setToggleShowList, online }) => {
   const [isSwitched, setIsSwitched] = useState(false);
   const switchHandler = () => {
     setIsSwitched(!isSwitched);
-  }
-  
+  };
+
   if (!picture) {
     picture = defaultImageUrl;
   }
   return (
     <div
-      style = {{color: isSwitched ? "red" : "#000"}}
+      style={{ color: isSwitched ? "red" : "#000" }}
       className={styles.user}
       onClick={() => {
         setChatId(_id);
@@ -23,7 +23,13 @@ const User = ({ _id, name, picture, setChatId, setToggleShowList }) => {
       }}
     >
       <img src={picture} alt="profile" className={styles.imgProfile} />
-      <div className={styles.userName}>{name}</div>
+      <div className={styles.userName}>
+        <span>{name}</span>
+        <div
+          className={styles.statusDot}
+          style={{ backgroundColor: online ? "green" : "gray" }}
+        ></div>
+      </div>
     </div>
   );
 };
@@ -32,7 +38,7 @@ User.propType = {
   _id: PropTypes.String,
   name: PropTypes.String,
   picture: PropTypes.String,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 };
 
 User.defaultProps = {
@@ -41,7 +47,7 @@ User.defaultProps = {
   picture: defaultImageUrl,
   onClickUser: () => {
     console.warn("onClick is not define");
-  }
+  },
 };
 
 export default User;

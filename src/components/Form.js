@@ -67,7 +67,7 @@ const Form = ({ chatId }) => {
           Swal.fire({
             icon: "warning",
             title: "경고",
-            text: "문제되는 메세지가 확인되었습니다. 다시 작성해 주세요.",
+            html: "Hughtamo의 감정 분석 AI 모델이 문제되는 <br> 메세지를 확인했습니다. 다시 작성해 주세요.",
             confirmButtonText: "네, 알겠습니다.",
           });
         }
