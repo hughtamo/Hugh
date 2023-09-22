@@ -9,7 +9,8 @@ import {
   InputAdornment,
   IconButton,
   Icon,
-  Button
+  Button,
+  Link
 } from "@material-ui/core";
 import { useAlert } from "react-alert";
 import gql from "graphql-tag";
@@ -78,14 +79,16 @@ const LoginBox = () => {
   }
   return (
     <>
+    <div className={styles.loginContainer}>
+      <div className={styles.logo}>
+        <img id="logo" src="/logo.png"></img>
+      </div>
       <div className={styles.loginBox}>
-        <h1>로그인을 해주세요.</h1>
-        {/* <GoogleLoginButton setRedirectToReferrer={setRedirectToReferrer} />
-      <FacebookLoginButton setRedirectToReferrer={setRedirectToReferrer} /> */}
+        <br/>
         <TextField
           id="id"
           className={styles.id}
-          variant="filled"
+          variant="standard"
           type="text"
           label="ID"
           margin="normal"
@@ -97,7 +100,7 @@ const LoginBox = () => {
         <TextField
           id="password"
           className={styles.password}
-          variant="filled"
+          variant="standard"
           type={showPassword ? "text" : "password"}
           label="Password"
           margin="normal"
@@ -122,25 +125,23 @@ const LoginBox = () => {
           }}
           value={password}
         />
-        <br />
+        <br /><br/>
         <Button
+          color="primary"
           variant="contained"
           className={styles.button}
-          color="primary"
           onClick={() => handleLogin()}
         >
           Login
         </Button>
-        <Button
-          variant="contained"
-          className={styles.button}
-          color="secondary"
-          onClick={() => setShowJoin(true)}
-        >
-          Join
-        </Button>
+        <br /><br/>
+        <text>Don't have an account? </text>
+        <Link onClick={() => setShowJoin(true)} underline="none">
+          Create your account
+        </Link>
       </div>
       <Join showJoin={showJoin} setShowJoin={setShowJoin} />
+    </div>
     </>
   );
 };

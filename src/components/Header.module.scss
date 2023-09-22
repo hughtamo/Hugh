@@ -15,10 +15,9 @@
   @include respond-to("small") {
   }
 
-  .logo {
-    color: #ffffff;
-    font-size: 38px;
-    font-weight: 700;
+  .logo img{
+    object-fit: cover;
+    width: 15%;
   }
 
   .menuButton {

@@ -4,7 +4,10 @@
   "private": true,
   "homepage": "https://ChoJongHoon.github.io/react-messenger-client",
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@material-ui/core": "^3.9.3",
+    "@mui/material": "^5.14.9",
     "apollo-boost": "^0.3.1",
     "apollo-link-ws": "^1.0.17",
     "fstream": "^1.0.12",

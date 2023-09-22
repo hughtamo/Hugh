@@ -88,8 +88,8 @@ const Join = ({ showJoin, setShowJoin }) => {
           showJoin ? styles.show : styles.unShow
         }`}
       >
-        <h1 className={styles.title}>회원가입</h1>
         <div className={styles.form}>
+          <br/><br/>
           <TextField
             label="Name"
             className={styles.textField}
@@ -142,6 +142,7 @@ const Join = ({ showJoin, setShowJoin }) => {
         </div>
         <br />
         <br />
+        <br/>
         <Button
           variant="contained"
           color="primary"
@@ -149,7 +150,7 @@ const Join = ({ showJoin, setShowJoin }) => {
             handleDone();
           }}
         >
-          Done
+          Create your account
         </Button>
       </div>
     </>
