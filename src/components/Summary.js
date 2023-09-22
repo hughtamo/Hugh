@@ -3,10 +3,12 @@ import React, { useState } from "react";
 //import { InputAdornment, TextField, Icon } from "@material-ui/core";
 //import styles from "./Form.module.scss";
 //import gql from "graphql-tag";
+import { List, ListItem, ListItemText} from "@material-ui/core";
 
 function Summarize(messageinput) {
   const [loading, setLoading] = useState(false);
   const [responseText, setResponseText] = useState("");
+  const [responseLines, setResponseLines] = useState([]);
   const [setKeywords] = useState("");
   const api_key = process.env.REACT_APP_OPENAI_API_KEY; // <- API KEY 입력
 
@@ -19,7 +21,7 @@ function Summarize(messageinput) {
 
     const messages = [
       { role: "system", content: "You are a helpful assistant." },
-      { role: "user", content: keywords + "을 요약해줘." },
+      { role: "user", content: "다음 메시지의 문의 내용을 번호 매겨서 핵심을 정리해줘. 인사, 자기소개, 감사인사 등의 내용은 빼줘. 너(ChatGPT)의 시작말과 마무리말도 빼고 딱 정리한 내용만 출력하도록 해. \"메시지의 문의 내용을 번호를 매겨서 정리하겠습니다 (인사와 마무리말은 제외):\" 이 부분도 빼줘. 1. 부터 시작해. 1. 2. 등 각 번호에는 ~ 관련 문의 등 문의 제목 옆에 음슴체를 사용해서 정리해줘. 1. 2. 번 등 같은 번호 안에서는 줄바꿈 절대!! 하지말고 한 줄로 출력해줘." + keywords},
     ];
 
     const data = {
@@ -43,7 +45,29 @@ function Summarize(messageinput) {
       );
 
       const responseData = await response.json();
+      const lines = responseData.choices[0].message.content.split('\n');
+
+      // 각 줄을 저장할 배열 및 현재 번호 초기화
+      let responseLines = [];
+      let currentNumber = "";
+  
+      // 각 줄을 순회하면서 번호를 추출하고 저장합니다.
+      for (const line of lines) {
+        // 정규식을 사용하여 숫자와 마침표로 시작하는 줄을 찾습니다.
+        const match = line.match(/^(\d+\.) (.*)/);
+  
+        if (match) {
+          // 숫자와 마침표로 시작하는 경우, 새로운 번호를 설정하고 줄을 저장합니다.
+          currentNumber = match[1];
+          responseLines.push(line);
+        } else if (currentNumber) {
+          // 현재 번호 아래에 포함되는 경우, 이전 번호와 함께 저장합니다.
+          responseLines.push(`${currentNumber} ${line}`);
+        }
+      }
+  
       setResponseText(responseData.choices[0].message.content);
+      setResponseLines(responseLines); // 각 줄을 저장한 배열을 상태로 설정
       setKeywords("");
     } catch (error) {
       console.error(error);
@@ -54,11 +78,18 @@ function Summarize(messageinput) {
 
   return (
     <div>
-      <button onClick={handleSummarize}>Summarize</button>
+      <button onClick={handleSummarize}>요약하기</button>
 
       {loading && <div id="loading">Loading...</div>}
-
-      <div id="result">{responseText && <pre>{responseText}</pre>}</div>
+      <div id="result">
+        <List>
+          {responseLines.map((line, index) => (
+            <ListItem key={index}>
+              <ListItemText primary={line} />
+            </ListItem>
+          ))}
+        </List>
+      </div>
     </div>
   );
 }
