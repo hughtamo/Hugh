@@ -69,11 +69,6 @@ const Form = ({ chatId }) => {
         label="Message"
         variant="outlined"
         InputProps={{
-          // startAdornment: (
-          //   <InputAdornment position="start">
-          //     <ChatGPT></ChatGPT>
-          //   </InputAdornment>
-          // ),
           endAdornment: (
             <InputAdornment position="start">
               <Icon className={styles.sendButton}>send</Icon>
