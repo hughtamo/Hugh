@@ -22,7 +22,7 @@ const MenuButton = ({ setRedirectToReferrer, setShowTodo }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
-  const handleClick = event => {
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -33,8 +33,8 @@ const MenuButton = ({ setRedirectToReferrer, setShowTodo }) => {
   const onLeave = useMutation(userConnectChange, {
     variables: {
       _id: window.sessionStorage.getItem("id"),
-      online: false
-    }
+      online: false,
+    },
   });
 
   const onClickLogout = () => {
@@ -62,8 +62,8 @@ const MenuButton = ({ setRedirectToReferrer, setShowTodo }) => {
         onClose={handleClose}
         PaperProps={{
           style: {
-            width: 200
-          }
+            width: 200,
+          },
         }}
       >
         <MenuItem onClick={onClickLogout}>Logout</MenuItem>
@@ -73,7 +73,7 @@ const MenuButton = ({ setRedirectToReferrer, setShowTodo }) => {
             handleClose();
           }}
         >
-          Todo List
+          Profile
         </MenuItem>
       </Menu>
     </div>
