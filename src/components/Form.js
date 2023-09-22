@@ -28,14 +28,45 @@ const sendMessage = gql`
 
 const Form = ({ chatId }) => {
   const [contents, setContents] = useState("");
-  const mutaition = useMutation(sendMessage, {
+  const mutation = useMutation(sendMessage, {
     variables: {
       senderId: window.sessionStorage.getItem("id"),
       receiverId: chatId,
       contents,
-      time: new Date()
-    }
+      time: new Date(),
+    },
   });
+
+  const analyzeSentiment = async () => {
+    let negativeDetected = false;
+    try {
+      const response = await fetch("/analyze", {
+        method: "POST",
+        headers: {
+          "X-NCP-APIGW-API-KEY-ID": "dccf90og0v",
+          "X-NCP-APIGW-API-KEY": "BQWozJDCXeZ6FxU2s1sEKj76hPml0ZtHYXvWPStR",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ content: contents }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.document && data.document.sentiment === "negative") {
+          // Trigger an alert for negative sentiment
+          negativeDetected = true;
+          alert("부정적 메세지가 확인되었습니다! ");
+        }
+      }
+    } catch (error) {
+      console.error("Error analyzing sentiment:", error);
+    }
+    if (!negativeDetected) {
+      mutation();
+      console.log("mutation called?");
+    }
+  };
+
   return (
     <div className={styles.form}>
       <label>GPT</label>
@@ -43,13 +74,14 @@ const Form = ({ chatId }) => {
         <ChatGPT></ChatGPT>
       </div>
       <TextField
-        onChange={e => {
+        onChange={(e) => {
           setContents(e.target.value);
         }}
-        onKeyPress={e => {
+        onKeyPress={(e) => {
           if (e.key === "Enter") {
             setContents("");
-            mutaition();
+            analyzeSentiment();
+            mutation();
           }
         }}
         value={contents}
@@ -63,7 +95,7 @@ const Form = ({ chatId }) => {
             <InputAdornment position="end">
               <Icon className={styles.sendButton}>send</Icon>
             </InputAdornment>
-          )
+          ),
         }}
       />
     </div>

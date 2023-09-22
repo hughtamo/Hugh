@@ -19,7 +19,12 @@ function Summarize(messageinput) {
 
     const messages = [
       { role: "system", content: "You are a helpful assistant." },
-      { role: "user", content: keywords + "을 요약해줘." },
+      {
+        role: "user",
+        content:
+          '다음 메시지의 문의 내용을 번호 매겨서 핵심을 정리해줘. 인사, 자기소개, 감사인사 등의 내용은 빼줘. 너(ChatGPT)의 시작말과 마무리말도 빼고 딱 정리한 내용만 출력하도록 해. "메시지의 문의 내용을 번호를 매겨서 정리하겠습니다 (인사와 마무리말은 제외):" 이 부분도 빼줘. 1. 부터 시작해.' +
+          keywords,
+      },
     ];
 
     const data = {

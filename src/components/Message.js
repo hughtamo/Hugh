@@ -10,9 +10,10 @@ const Message = ({ me, time, children }) => {
       <div className={me ? styles.sentMessageBox : styles.receivedMessageBox}>
         {children}
       </div>
-      <div className={styles.time}>{getTimeString(time)}
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <Summarize data={children}></Summarize>
+      <div className={styles.time}>
+        {getTimeString(time)}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <Summarize data={children}></Summarize>
       </div>
     </div>
   );
@@ -20,7 +21,7 @@ const Message = ({ me, time, children }) => {
 
 Message.propType = {
   me: PropTypes.bool,
-  date: PropTypes.number
+  date: PropTypes.number,
 };
 
 export default Message;
