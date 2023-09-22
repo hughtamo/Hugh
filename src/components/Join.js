@@ -1,19 +1,26 @@
 import React, { useState } from "react";
 import styles from "./Join.module.scss";
-import { TextField, Button, Icon } from "@material-ui/core";
+import {
+  TextField,
+  Button,
+  Icon,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+} from "@material-ui/core";
 import { useAlert } from "react-alert";
 import gql from "graphql-tag";
 import { useQuery, useMutation } from "react-apollo-hooks";
 
 const duplicateCheck = gql`
-  query($_id: String!) {
+  query ($_id: String!) {
     duplicateCheck(_id: $_id)
   }
 `;
 
 const addUser = gql`
-  mutation($_id: String!, $name: String!, $password: String) {
-    addUser(_id: $_id, name: $name, password: $password) {
+  mutation ($_id: String!, $name: String!, $password: String, $role: String!) {
+    addUser(_id: $_id, name: $name, password: $password, role: $role) {
       _id
       name
     }
@@ -27,13 +34,15 @@ const Join = ({ showJoin, setShowJoin }) => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
+  const [role, setRole] = useState("student"); // 기본 역할 학생으로?
+
   const { data } = useQuery(duplicateCheck, {
     variables: {
-      _id: id
-    }
+      _id: id,
+    },
   });
   const addUserMutation = useMutation(addUser, {
-    variables: { _id: id, name, password }
+    variables: { _id: id, name, password, role },
   });
   const handleDuplicateCheck = () => {
     console.log(data);
@@ -88,12 +97,11 @@ const Join = ({ showJoin, setShowJoin }) => {
           showJoin ? styles.show : styles.unShow
         }`}
       >
-        <h1 className={styles.title}>회원가입</h1>
         <div className={styles.form}>
           <TextField
             label="Name"
             className={styles.textField}
-            onChange={e => {
+            onChange={(e) => {
               setName(e.target.value);
             }}
             value={name}
@@ -102,7 +110,7 @@ const Join = ({ showJoin, setShowJoin }) => {
           <TextField
             label="ID"
             className={styles.textField}
-            onChange={e => {
+            onChange={(e) => {
               setId(e.target.value);
               setDuplicated(false);
             }}
@@ -123,7 +131,7 @@ const Join = ({ showJoin, setShowJoin }) => {
             label="Password"
             type="password"
             className={styles.textField}
-            onChange={e => {
+            onChange={(e) => {
               setPassword(e.target.value);
             }}
             value={password}
@@ -133,13 +141,40 @@ const Join = ({ showJoin, setShowJoin }) => {
             label="Password Check"
             type="password"
             className={styles.textField}
-            onChange={e => {
+            onChange={(e) => {
               setPasswordCheck(e.target.value);
             }}
             value={passwordCheck}
           />
           <br />
+          <br />
+
+          <RadioGroup
+            aria-label="Role"
+            name="role"
+            value={role}
+            onChange={(e) => {
+              setRole(e.target.value);
+            }}
+          >
+            <FormControlLabel
+              value="student"
+              control={<Radio />}
+              label="학생"
+            />
+            <FormControlLabel
+              value="parent"
+              control={<Radio />}
+              label="학부모"
+            />
+            <FormControlLabel
+              value="teacher"
+              control={<Radio />}
+              label="교사"
+            />
+          </RadioGroup>
         </div>
+        <br />
         <br />
         <br />
         <Button
@@ -149,7 +184,7 @@ const Join = ({ showJoin, setShowJoin }) => {
             handleDone();
           }}
         >
-          Done
+          Create your account
         </Button>
       </div>
     </>
