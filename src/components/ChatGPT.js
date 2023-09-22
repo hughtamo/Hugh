@@ -10,7 +10,7 @@ function ChatGPT() {
     const [responseText, setResponseText] = useState('');
     const [keywords, setKeywords] = useState('');
     const api_key = process.env.REACT_APP_OPENAI_API_KEY;  // <- API KEY 입력
-  
+
     const handleChatGPT = async () => {
       setLoading(true);
   
@@ -35,7 +35,7 @@ function ChatGPT() {
           },
           body: JSON.stringify(data),
         });
-  
+
         const responseData = await response.json();
         setResponseText(responseData.choices[0].message.content);
         setKeywords('');

@@ -3,13 +3,14 @@ import styles from "./Contents.module.scss";
 import MessageList from "./MessageList";
 import Form from "./Form";
 import logo from "../logo.svg";
+import RemoteTextFetcher from "./RemoteTextFetcher";
 
 const Contents = ({ chatId }) => {
   if (!chatId) {
     return (
       <div className={styles.contents}>
         <div className={styles.center}>
-          <img src={logo} className={styles.reactLogo} alt="react logo" />
+          <RemoteTextFetcher></RemoteTextFetcher>
         </div>
       </div>
     );
