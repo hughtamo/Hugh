@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 //import { useMutation } from "react-apollo-hooks";
 //import { InputAdornment, TextField, Icon } from "@material-ui/core";
-//import styles from "./Form.module.scss";
+import styles from "./Form.module.scss";
+//import { TextField } from "@material-ui/core";
 //import gql from "graphql-tag";
 
 function ChatGPT() {
@@ -64,7 +65,9 @@ function ChatGPT() {
 
       {loading && <div id="loading">Loading...</div>}
 
-      <div id="result">{responseText && <pre>{responseText}</pre>}</div>
+      <div id="result" className={styles.form}>
+        {responseText && <pre className={styles.form}>{responseText}</pre>}
+      </div>
     </div>
   );
 }

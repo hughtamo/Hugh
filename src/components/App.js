@@ -8,6 +8,7 @@ import AlertTemplate from "react-alert-template-basic";
 import Home from "./Home";
 import LoginPage from "./LoginPage";
 import ChatGPT from "./ChatGPT";
+import RemoteTextFetcher from "./RemoteTextFetcher";
 
 const options = {
   position: positions.BOTTOM_CENTER,
@@ -28,6 +29,7 @@ class App extends Component {
               <Route path={"/chat/:id"} component={Home} />
               <Route path={"/Login"} component={LoginPage} />
               <Route path={"/Gpt"} component={ChatGPT} />
+              <Route path={"/Wordcloud"} component={RemoteTextFetcher}/>
             </Router>
           </AlertProvider>
         </ApolloHooksProvider>
