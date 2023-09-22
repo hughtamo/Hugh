@@ -7,7 +7,12 @@ const userSchema = new Schema({
   password: String,
   name: String,
   imageUrl: String,
-  online: Boolean
+  online: Boolean,
+  role: {
+    type: String,
+    enum: ["student", "parent", "teacher"],
+    default: "student",
+  },
 });
 
 export default mongoose.model("User", userSchema);

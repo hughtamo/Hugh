@@ -22,8 +22,8 @@ const resolvers = {
       return Message.find({
         $or: [
           { $and: [{ senderId: userId1 }, { receiverId: userId2 }] },
-          { $and: [{ senderId: userId2 }, { receiverId: userId1 }] }
-        ]
+          { $and: [{ senderId: userId2 }, { receiverId: userId1 }] },
+        ],
       }).sort({ time: 1 });
     },
     todos: () => {
@@ -35,19 +35,20 @@ const resolvers = {
       } else {
         return true;
       }
-    }
+    },
   },
   Mutation: {
-    addUser: async (_, { _id, name, imageUrl, password }) => {
+    addUser: async (_, { _id, name, imageUrl, password, role }) => {
       let newUser = new User({
         _id,
         name,
         imageUrl,
         password,
-        online: false
+        online: false,
+        role,
       });
       pubsub.publish(NEW_USER, {
-        newUser
+        newUser,
       });
       return newUser.save();
     },
@@ -56,12 +57,12 @@ const resolvers = {
         senderId,
         receiverId,
         contents,
-        time
+        time,
       });
       pubsub.publish(NEW_MESSAGE, {
         roomId:
           senderId < receiverId ? senderId + receiverId : receiverId + senderId,
-        newMessage
+        newMessage,
       });
 
       return await newMessage.save();
@@ -69,17 +70,17 @@ const resolvers = {
     addTodo: async (_, { text }) => {
       let newTodo = new Todo({
         text,
-        done: true
+        done: true,
       });
 
       pubsub.publish(NEW_TODO, {
-        newTodo
+        newTodo,
       });
 
       return await newTodo.save();
     },
     removeTodo: async (_, { _id }) => {
-      Todo.deleteOne({ _id }, err => {
+      Todo.deleteOne({ _id }, (err) => {
         if (err) {
           console.error("removeTodo ERROR");
           return false;
@@ -102,7 +103,7 @@ const resolvers = {
     },
     userConnectChange: async (_, { _id, online }) => {
       pubsub.publish(NEW_USER, {
-        newUser: User.findById(_id)
+        newUser: User.findById(_id),
       });
 
       return await User.findById(_id, (err, user) => {
@@ -112,24 +113,25 @@ const resolvers = {
         if (!user) {
           console.error("user is not found");
         }
-        user.online = online;
+        if (online == null) user.online = false;
+        else user.online = online;
         user.save();
       });
-    }
+    },
   },
   Subscription: {
     newUser: {
-      subscribe: () => pubsub.asyncIterator(NEW_USER)
+      subscribe: () => pubsub.asyncIterator(NEW_USER),
     },
     newMessage: {
       subscribe: withFilter(
         () => pubsub.asyncIterator(NEW_MESSAGE),
         (payload, args) => payload.roomId === args.roomId
-      )
+      ),
     },
     newTodo: {
-      subscribe: () => pubsub.asyncIterator(NEW_TODO)
-    }
+      subscribe: () => pubsub.asyncIterator(NEW_TODO),
+    },
   },
   Date: new GraphQLScalarType({
     name: "Date",
@@ -145,8 +147,8 @@ const resolvers = {
         return new Date(ast.value); // ast value is always in string format
       }
       return null;
-    }
-  })
+    },
+  }),
 };
 
 export default resolvers;

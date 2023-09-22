@@ -4,9 +4,17 @@ import resolvers from "./graphql/resolvers";
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect("mongodb://127.0.0.1:27017/messenger", {
-  useNewUrlParser: true
-});
+mongoose
+  .connect("mongodb://127.0.0.1:27017/messenger", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("MongoDB connected");
+  })
+  .catch((error) => {
+    console.error("MongoDB connection error:", error);
+  });
 
 mongoose.connection.once("open", () => {
   console.log("MongoDB connect");
@@ -17,6 +25,6 @@ const typeDefs = "./graphql/schema.graphql";
 const server = new GraphQLServer({
   typeDefs,
   resolvers,
-  context: { pubsub: resolvers.pubsub }
+  context: { pubsub: resolvers.pubsub },
 });
 server.start(() => console.log("Server is running on localhost:4000"));
