@@ -4,7 +4,6 @@ import { InputAdornment, TextField, Icon } from "@material-ui/core";
 import styles from "./Form.module.scss";
 import gql from "graphql-tag";
 import ChatGPT from "./ChatGPT";
-import FormComponent from "./FormComponent";
 
 const sendMessage = gql`
   mutation sendMessage(
@@ -44,36 +43,44 @@ const Form = ({ chatId }) => {
     setShowForm(!showForm);
   };
 
+  const handleContentsChange = (e) => {
+    setContents(e.target.value);
+  };
+
+  const handleEnterKeyPress = (e) => {
+    if (e.key === "Enter") {
+      setContents("");
+      mutation();
+    }
+  };
+
   return (
     <div className={styles.form}>
+      {/* FormTextField 컴포넌트 */}
       <TextField
-        onChange={(e) => {
-          setContents(e.target.value);
-        }}
-        onKeyPress={(e) => {
-          if (e.key === "Enter") {
-            setContents("");
-            mutation();
-          }
-        }}
+        id="outlined-multiline-flexible"
+        multiline
+        rows={5}
+        onChange={handleContentsChange}
+        onKeyPress={handleEnterKeyPress}
         value={contents}
         fullWidth={true}
         margin="normal"
         label="Message"
-        placeholder="Type your message."
         variant="outlined"
         InputProps={{
+          // startAdornment: (
+          //   <InputAdornment position="start">
+          //     <ChatGPT></ChatGPT>
+          //   </InputAdornment>
+          // ),
           endAdornment: (
-            <InputAdornment position="end">
-              <button id="form" onClick={handleFormButtonClick}>
-                {showForm ? "Hide Form" : "Show Form"}
-              </button>
+            <InputAdornment position="start">
               <Icon className={styles.sendButton}>send</Icon>
             </InputAdornment>
           ),
         }}
       />
-      {showForm && <FormComponent />}
     </div>
   );
 };

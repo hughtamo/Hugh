@@ -4,7 +4,7 @@ import React, { useState } from "react";
 //import styles from "./Form.module.scss";
 //import gql from "graphql-tag";
 import styles from "./Summary.module.scss";
-import FormComponent from './FormComponent'; // FormComponent 파일 임포트
+import ChatGPT from "./ChatGPT";
 
 
 function Summarize(messageinput) {
@@ -118,13 +118,8 @@ function Summarize(messageinput) {
           <button onClick={toggleSummary}>요약 접기</button>
         </div>
       )}
-
-      <div>
-        {/* FormComponent를 렌더링하고 데이터와 필요한 함수를 전달 */}
-        <FormComponent style={{ display: "none" }} summaryData={savedSummary} />
-      </div>
+      <ChatGPT>summary = {savedSummary}</ChatGPT>
     </div>
-    
   );
 }
 
