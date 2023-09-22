@@ -34,9 +34,27 @@ const Form = ({ chatId }) => {
       senderId: window.sessionStorage.getItem("id"),
       receiverId: chatId,
       contents,
-      time: new Date(),
+      time: new Date(),,
     },
   });
+
+  const [showForm, setShowForm] = useState(false);
+
+  const handleFormButtonClick = () => {
+    setShowForm(!showForm);
+  };
+
+  const handleContentsChange = (e) => {
+    setContents(e.target.value);
+  };
+
+  const handleEnterKeyPress = (e) => {
+    if (e.key === "Enter") {
+      setContents("");
+      mutation();
+    },
+  };
+
 
   const analyzeSentiment = async () => {
     let negativeDetected = false;
@@ -92,31 +110,26 @@ const Form = ({ chatId }) => {
 
   return (
     <div className={styles.form}>
-      <label>GPT</label>
-      <div id="gptzone">
-        <ChatGPT></ChatGPT>
-      </div>
+      {/* FormTextField 컴포넌트 */}
       <TextField
-        onChange={(e) => {
-          setContents(e.target.value);
-        }}
-        // onKeyPress={(e) => {
-        //   if (e.key === "Enter") {
-        //     setContents("");
-        //     analyzeSentiment();
-        //     mutation();
-        //   }
-        // }}
-        onKeyPress={handleKeyPress}
+        id="outlined-multiline-flexible"
+        multiline
+        rows={5}
+        onChange={handleContentsChange}
+        onKeyPress={handleEnterKeyPress}
         value={contents}
         fullWidth={true}
         margin="normal"
         label="Message"
-        placeholder="Type your message."
         variant="outlined"
         InputProps={{
+          // startAdornment: (
+          //   <InputAdornment position="start">
+          //     <ChatGPT></ChatGPT>
+          //   </InputAdornment>
+          // ),
           endAdornment: (
-            <InputAdornment position="end">
+            <InputAdornment position="start">
               <Icon className={styles.sendButton}>send</Icon>
             </InputAdornment>
           ),

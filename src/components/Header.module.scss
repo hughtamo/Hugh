@@ -17,7 +17,8 @@
 
   .logo img {
     object-fit: cover;
-    width: 15%;
+    width: 120px;
+    height: 50px; /* 높이도 필요한 크기로 설정하세요. */
   }
 
   .menuButton {
