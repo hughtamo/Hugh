@@ -113,7 +113,7 @@ const resolvers = {
         if (!user) {
           console.error("user is not found");
         }
-        if (online == null) user.online = false;
+        if (online === null) user.online = false;
         else user.online = online;
         user.save();
       });
