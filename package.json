@@ -2,7 +2,6 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ChoJongHoon.github.io/react-messenger-client",
   "dependencies": {
     "@fontsource/noto-sans-kr": "^5.0.11",
     "@emotion/react": "^11.11.1",

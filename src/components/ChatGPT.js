@@ -96,6 +96,7 @@ function ChatGPT(props) {
         multiline
         rows={3}
         variant="standard"
+        placeholder="간단한 답변을 입력 후 : [답변 생성] 버튼을 클릭"
         type="text"
         name="keywords"
         value={keywords}
@@ -130,7 +131,7 @@ function ChatGPT(props) {
 
       {showResponse && (
         <div id="result">
-          <pre>{responseText}</pre>
+          <pre style={{whiteSpace: "pre-wrap"}}>{responseText}</pre>
         </div>
       )}
     </div>
