@@ -4,8 +4,10 @@ import React, { useState } from "react";
 //import styles from "./Form.module.scss";
 //import gql from "graphql-tag";
 import styles from "./Summary.module.scss";
+import FormComponent from './FormComponent'; // FormComponent 파일 임포트
 
-function Summarize(messageinput, onSaveSummary) {
+
+function Summarize(messageinput) {
   const [loading, setLoading] = useState(false);
   const [responseText, setResponseText] = useState("");
   const [showSummary, setShowSummary] = useState(false); 
@@ -82,11 +84,10 @@ function Summarize(messageinput, onSaveSummary) {
 
       if (!generateSummary) {
         const summary = responseData && responseData.choices
-          ? responseData.choices[0].message.content.replace(/(\d+\.) /g, match => (match === '1.' ? match : '\n' + match))
+          ? responseData.choices[0].message.content
           : "";
         setSavedSummary(summary);
         setKeywords(inputKeywords);
-        onSaveSummary(summary);
       }
 
       setShowSummary(!showSummary);
@@ -117,7 +118,13 @@ function Summarize(messageinput, onSaveSummary) {
           <button onClick={toggleSummary}>요약 접기</button>
         </div>
       )}
+
+      <div>
+        {/* FormComponent를 렌더링하고 데이터와 필요한 함수를 전달 */}
+        <FormComponent style={{ display: "none" }} summaryData={savedSummary} />
+      </div>
     </div>
+    
   );
 }
 
