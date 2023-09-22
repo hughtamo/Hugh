@@ -5,6 +5,7 @@ import React, { useState } from "react";
 //import gql from "graphql-tag";
 import styles from "./Summary.module.scss";
 import ChatGPT from "./ChatGPT";
+import { Button } from "@material-ui/core";
 
 
 function Summarize(messageinput) {
@@ -107,7 +108,7 @@ function Summarize(messageinput) {
 
   return (
     <div>
-      <button onClick={handleSummarize}>요약 보기</button>
+      <Button onClick={handleSummarize}>요약 보기</Button>
       {loading && (
         <div id="loading">메시지를 요약하는 중입니다. 잠시만 기다려주세요...</div>
       )}
@@ -115,10 +116,10 @@ function Summarize(messageinput) {
         <div id="result">
           <pre style={styles.pre}>{showSummary ? savedSummary : ""}</pre>
           <br/>
-          <button onClick={toggleSummary}>요약 접기</button>
+          <Button onClick={toggleSummary}>요약 접기</Button>
         </div>
       )}
-      <ChatGPT>summary = {savedSummary}</ChatGPT>
+      <ChatGPT summary = {savedSummary}></ChatGPT>
     </div>
   );
 }
