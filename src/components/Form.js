@@ -3,7 +3,6 @@ import { useMutation } from "react-apollo-hooks";
 import { InputAdornment, TextField, Icon } from "@material-ui/core";
 import styles from "./Form.module.scss";
 import gql from "graphql-tag";
-import ChatGPT from "./ChatGPT";
 import Swal from "sweetalert2";
 
 const sendMessage = gql`
@@ -34,27 +33,19 @@ const Form = ({ chatId }) => {
       senderId: window.sessionStorage.getItem("id"),
       receiverId: chatId,
       contents,
-      time: new Date(),,
+      time: new Date(),
     },
   });
 
-  const [showForm, setShowForm] = useState(false);
+  // const [showForm, setShowForm] = useState(false);
 
-  const handleFormButtonClick = () => {
-    setShowForm(!showForm);
-  };
+  // const handleFormButtonClick = () => {
+  //   setShowForm(!showForm);
+  // };
 
   const handleContentsChange = (e) => {
     setContents(e.target.value);
   };
-
-  const handleEnterKeyPress = (e) => {
-    if (e.key === "Enter") {
-      setContents("");
-      mutation();
-    },
-  };
-
 
   const analyzeSentiment = async () => {
     let negativeDetected = false;
@@ -116,18 +107,13 @@ const Form = ({ chatId }) => {
         multiline
         rows={5}
         onChange={handleContentsChange}
-        onKeyPress={handleEnterKeyPress}
+        onKeyPress={handleKeyPress}
         value={contents}
         fullWidth={true}
         margin="normal"
         label="Message"
         variant="outlined"
         InputProps={{
-          // startAdornment: (
-          //   <InputAdornment position="start">
-          //     <ChatGPT></ChatGPT>
-          //   </InputAdornment>
-          // ),
           endAdornment: (
             <InputAdornment position="start">
               <Icon className={styles.sendButton}>send</Icon>
