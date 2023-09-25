@@ -1,0 +1,28 @@
+@import "./mixin";
+
+.contents {
+  padding-top: 48px;
+  padding-left: 240px;
+  @include respond-to("small") {
+    padding-left: 0px;
+  }
+}
+
+.center {
+  width: 100%;
+  text-align: center;
+}
+
+.logo {
+  height: 40vmin;
+  margin-top: 20%;
+}
+
+// @keyframes App-logo-spin {
+//   from {
+//     transform: rotate(0deg);
+//   }
+//   to {
+//     transform: rotate(360deg);
+//   }
+// }
