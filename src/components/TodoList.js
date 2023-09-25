@@ -1,7 +1,5 @@
 import React from "react";
 import styles from "./TodoList.module.scss";
-import TodoForm from "./TodoForm";
-import Todos from "./Todos";
 
 const TodoList = ({ showTodo, setShowTodo }) => {
   return (
@@ -20,8 +18,9 @@ const TodoList = ({ showTodo, setShowTodo }) => {
         }`}
       >
         <div className={styles.title}>회원 정보</div>
-        <div className={styles.todos}>
-          <Todos />
+        <div className={styles.userInfo}>
+          <div>이름: {window.sessionStorage.getItem("name")}</div>
+          <div>소속: {window.sessionStorage.getItem("role")}</div>
         </div>
       </div>
     </>

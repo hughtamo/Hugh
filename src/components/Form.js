@@ -62,7 +62,7 @@ const Form = ({ chatId }) => {
 
       if (response.ok) {
         const data = await response.json();
-        if (data.document && data.document.sentiment === "negative") {
+        if (data.document && data.document.confidence.negative > 0.986) {
           negativeDetected = true;
           Swal.fire({
             icon: "warning",

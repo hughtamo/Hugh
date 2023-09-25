@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import styles from "./LoginBox.module.scss";
-// import GoogleLoginButton from "./GoogleLoginButton";
-// import FacebookLoginButton from "./FacebookLoginButton";
 import Join from "./Join";
 import {
   TextField,
@@ -22,6 +20,7 @@ const user = gql`
       _id
       password
       name
+      role
     }
   }
 `;
@@ -66,6 +65,7 @@ const LoginBox = () => {
       if (password === data.user.password) {
         window.sessionStorage.setItem("id", id);
         window.sessionStorage.setItem("name", data.user.name);
+        window.sessionStorage.setItem("role", data.user.role);
         userConnect();
         alert.success("로그인 성공!");
         setRedirectToReferrer(true);
