@@ -1,0 +1,64 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fontsource/noto-sans-kr": "^5.0.11",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@material-ui/core": "^3.9.3",
+    "@mui/material": "^5.14.9",
+    "apollo-boost": "^0.3.1",
+    "apollo-link-ws": "^1.0.17",
+    "fstream": "^1.0.12",
+    "graphql": "^14.2.1",
+    "graphql-tag": "^2.10.1",
+    "handlebars": "^4.3.0",
+    "js-yaml": "^3.13.1",
+    "lodash": "^4.17.15",
+    "lodash.mergewith": "^4.6.2",
+    "lodash.template": "^4.5.0",
+    "node-sass": "^4.14.1",
+    "open-color": "^1.6.3",
+    "openai": "^4.7.1",
+    "react": "^16.8.6",
+    "react-alert": "^5.5.0",
+    "react-alert-template-basic": "^1.0.0",
+    "react-apollo": "^2.5.5",
+    "react-apollo-hooks": "^0.4.5",
+    "react-dom": "^16.8.6",
+    "react-facebook-login": "^4.1.1",
+    "react-google-login": "^5.0.4",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "2.1.8",
+    "react-wordcloud": "^1.2.7",
+    "subscriptions-transport-ws": "^0.9.16",
+    "typescript": "^5.2.2"
+  },
+  "scripts": {
+    "start:https": "export HTTPS=true&&PORT=3000 react-scripts start",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "deploy": "npm run build&&gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "gh-pages": "^2.0.1",
+    "http-proxy-middleware": "^2.0.6",
+    "sweetalert2": "^11.7.28"
+  },
+  "main": "index.js",
+  "repository": "https://github.com/hughtamo/Frontend.git",
+  "author": "sjy2335 <106982330+sjy2335@users.noreply.github.com>",
+  "license": "MIT"
+}
