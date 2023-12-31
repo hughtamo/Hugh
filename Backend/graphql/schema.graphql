@@ -1,0 +1,59 @@
+scalar Date
+scalar GraphQLObjectId
+
+type User {
+  _id: String!
+  password: String
+  name: String!
+  imageUrl: String
+  online: Boolean
+  role: String!
+}
+
+type Message {
+  _id: GraphQLObjectId
+  senderId: String!
+  receiverId: String!
+  contents: String!
+  time: Date!
+}
+
+type Todo {
+  _id: GraphQLObjectId
+  text: String
+  done: Boolean!
+}
+
+type Query {
+  users: [User]
+  user(_id: String!): User
+  messages(userId1: String!, userId2: String!): [Message]
+  todos: [Todo]
+  duplicateCheck(_id: String!): Boolean!
+}
+
+type Mutation {
+  addUser(
+    _id: String!
+    name: String!
+    imageUrl: String
+    password: String
+    role: String!
+  ): User
+  sendMessage(
+    senderId: String!
+    receiverId: String!
+    contents: String!
+    time: Date!
+  ): Message
+  addTodo(text: String): Todo
+  removeTodo(_id: GraphQLObjectId): Boolean
+  todoToggle(_id: GraphQLObjectId): Todo
+  userConnectChange(_id: String!, online: Boolean!): User
+}
+
+type Subscription {
+  newUser: User
+  newMessage(roomId: String): Message
+  newTodo: Todo
+}

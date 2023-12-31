@@ -1,0 +1,28 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "engines": {
+    "node": "14.21.3",
+    "npm": "6.4.1"
+  },
+  "dependencies": {
+    "@fontsource/noto-sans-kr": "^5.0.11",
+    "graphql-scalar-objectid": "^0.1.1",
+    "graphql-yoga": "^1.17.4",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.7.5",
+    "react-wordcloud": "^1.2.7"
+  },
+  "scripts": {
+    "start": "nodemon --exec babel-node index.js"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "cors": "^2.8.5",
+    "http-proxy-middleware": "^2.0.6"
+  }
+}
