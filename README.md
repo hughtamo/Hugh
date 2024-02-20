@@ -8,7 +8,7 @@
 </p>
 <br>
 
-## 💻 시연 영상 (업로드 예정)
+## 💻 시연 영상
 <img width="600" src="https://github.com/hughtamo/Hugh/assets/106982330/c456bd4a-5eb6-4ba6-afea-f9207517c6f3">
 
 ## 👩‍👩‍👧‍👦 팀원 구성
